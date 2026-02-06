@@ -277,13 +277,14 @@ background: rgba(180, 160, 140, 0.2);
 
 ### 1. Download Files
 ```bash
-git clone https://github.com/yourusername/glass-morphism-buttons.git
+git clone https://github.com/NikolaPopovic71/glass-morphism-buttons.git
 cd glass-morphism-buttons
 ```
 
 ### 2. Open in Browser
 ```bash
 open index.html
+open style.css
 ```
 
 ### 3. Customize
@@ -392,7 +393,7 @@ Download the repository and copy `style.css` and the SVG filter from `index.html
 ### With Background Image
 ```css
 .background-container {
-  background: url("your-image.jpg") no-repeat center center/cover;
+  background: url("you-can-use-images-from-this-repo.jpg") no-repeat center center/cover;
   min-height: 100vh;
   display: flex;
   align-items: center;
