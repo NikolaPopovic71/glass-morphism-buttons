@@ -86,19 +86,170 @@ and
 
 **Best for:** iOS-style interfaces, elegant overlays, navigation bars
 
-**SVG Filter:**
+## How It Works
+
+The effect uses SVG filters with three main components:
+
+### 1. feTurbulence
+Creates fractal noise (random patterns)
 ```xml
-<filter id="liquid-glass">
-  <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2"/>
-  <feGaussianBlur stdDeviation="2"/>
-  <feDisplacementMap scale="70"/>
+<feTurbulence 
+  type="fractalNoise" 
+  baseFrequency="0.008 0.008"  ← Controls pattern size
+  numOctaves="2"                ← Controls detail levels
+  seed="92"                     ← Random seed for pattern
+/>
+```
+
+### 2. feGaussianBlur
+Smooths the noise to make it more natural
+```xml
+<feGaussianBlur 
+  in="noise" 
+  stdDeviation="2"  ← Higher = smoother distortion
+/>
+```
+
+### 3. feDisplacementMap
+Warps the image based on the noise pattern
+```xml
+<feDisplacementMap 
+  in="SourceGraphic" 
+  in2="blurred"
+  scale="70"          ← Distortion strength (0-200)
+  xChannelSelector="R"
+  yChannelSelector="G"
+/>
+```
+
+## Parameter Guide
+
+### baseFrequency (How fine/coarse the distortion is)
+- **0.004** - Very large, smooth waves
+- **0.006** - Subtle, gentle distortion
+- **0.008** - Default (Apple's setting) ⭐
+- **0.01** - More obvious distortion
+- **0.015** - Fine, detailed patterns
+- **0.02** - Very fine, almost grainy
+
+💡 **Tip:** Lower = larger patterns, Higher = smaller patterns
+
+### scale (Distortion strength)
+- **30-40** - Very subtle
+- **50-60** - Gentle
+- **70** - Default (Apple's setting) ⭐
+- **80-90** - Strong
+- **100+** - Very dramatic
+
+💡 **Tip:** This is the most impactful parameter for visibility
+
+### stdDeviation (Blur smoothness)
+- **1-1.5** - Sharp, detailed distortion
+- **2** - Default (Apple's setting) ⭐
+- **3-4** - Softer, smoother
+- **5+** - Very smooth, wave-like
+
+### numOctaves (Detail layers)
+- **1** - Simple, smooth
+- **2** - Default (Apple's setting) ⭐
+- **3** - More complex patterns
+- **4+** - Very detailed (can be noisy)
+
+## Common Combinations
+
+### Super Subtle (barely visible)
+```xml
+baseFrequency="0.006"
+scale="40"
+stdDeviation="2"
+numOctaves="1"
+```
+
+### Apple Default (recommended)
+```xml
+baseFrequency="0.008"
+scale="70"
+stdDeviation="2"
+numOctaves="2"
+```
+
+### Strong & Obvious
+```xml
+baseFrequency="0.01"
+scale="90"
+stdDeviation="2"
+numOctaves="2"
+```
+
+### Smooth Waves
+```xml
+baseFrequency="0.005"
+scale="100"
+stdDeviation="4"
+numOctaves="1"
+```
+
+## How to Customize
+
+### In your index.html, find the SVG filter:
+```html
+<filter id="liquid-glass" x="0%" y="0%" width="100%" height="100%">
+  <feTurbulence 
+    type="fractalNoise" 
+    baseFrequency="0.008 0.008"  ← Change these values
+    numOctaves="2" 
+    seed="92" 
+    result="noise" 
+  />
+  <feGaussianBlur 
+    in="noise" 
+    stdDeviation="2"  ← Change this
+    result="blurred" 
+  />
+  <feDisplacementMap 
+    in="SourceGraphic" 
+    in2="blurred" 
+    scale="70"  ← Change this
+    xChannelSelector="R" 
+    yChannelSelector="G" 
+  />
 </filter>
 ```
 
-**Apple's Parameters:**
-- `baseFrequency: 0.008` — Pattern size
-- `scale: 70` — Distortion strength
-- `stdDeviation: 2` — Smoothness
+### Change the seed for different patterns
+The `seed` value creates different random patterns. Try: 42, 77, 123, 999, etc.
+
+## Browser Performance
+
+✅ **Excellent:** Chrome, Safari, Edge (hardware accelerated)
+✅ **Good:** Firefox
+⚠️ **Note:** SVG filters can be heavy on very old devices
+
+### Performance Tips:
+1. Use lower `numOctaves` (1-2) for better performance
+2. Avoid very high `scale` values (keep under 100)
+3. Lower `stdDeviation` is faster than higher
+
+## Comparison with Previous Approach
+
+### Before (CSS-only):
+- Used backdrop-filter + CSS noise
+- Browser-dependent results
+- Limited distortion options
+
+### Now (Apple's SVG technique):
+- Pure SVG filters
+- Consistent across browsers
+- Precise control over distortion
+- Same as Apple's actual implementation
+
+Here is an example of frosted images from code, modern and coarser one 
+
+![frosted button modern](clear_button_modern.webp) 
+
+and 
+
+![frosted button coarser](clear_button_simple.webp)
 
 ---
 
@@ -126,13 +277,14 @@ background: rgba(180, 160, 140, 0.2);
 
 ### 1. Download Files
 ```bash
-git clone https://github.com/yourusername/glass-morphism-buttons.git
+git clone https://github.com/NikolaPopovic71/glass-morphism-buttons.git
 cd glass-morphism-buttons
 ```
 
 ### 2. Open in Browser
 ```bash
 open index.html
+open style.css
 ```
 
 ### 3. Customize
@@ -241,7 +393,7 @@ Download the repository and copy `style.css` and the SVG filter from `index.html
 ### With Background Image
 ```css
 .background-container {
-  background: url("your-image.jpg") no-repeat center center/cover;
+  background: url("you-can-use-images-from-this-repo.jpg") no-repeat center center/cover;
   min-height: 100vh;
   display: flex;
   align-items: center;
