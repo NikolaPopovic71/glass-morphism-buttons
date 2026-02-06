@@ -66,7 +66,11 @@ background: rgba(120, 110, 100, 0.25);
 
 Here is an example of frosted images from code, modern and coarser one 
 
-![frosted button modern](frost_button_modern.webp) and ![frosted button coarser](frost_button_simple.webp)
+![frosted button modern](frost_button_modern.webp) 
+
+and 
+
+![frosted button coarser](frost_button_simple.webp)
 
 ---
 
