@@ -11,7 +11,6 @@ A collection of modern glass morphism UI components featuring three distinct eff
 
 ## Table of Contents
 
-- [Live Demo](#live-demo)
 - [Features](#features)
 - [Glass Effects Explained](#glass-effects-explained)
   - [Frosted Effect](#frosted-effect)
@@ -27,12 +26,6 @@ A collection of modern glass morphism UI components featuring three distinct eff
 - [Performance Tips](#performance-tips)
 - [Credits](#credits)
 - [License](#license)
-
----
-
-## Live Demo
-
-🔗 [View Live Demo](#) *(Add your deployment URL)*
 
 ---
 
@@ -70,6 +63,10 @@ A collection of modern glass morphism UI components featuring three distinct eff
 backdrop-filter: blur(20px) saturate(120%) brightness(0.95);
 background: rgba(120, 110, 100, 0.25);
 ```
+
+Here is an example of frosted images from code, modern and coarser one 
+
+![frosted button modern](frost_button_modern.webp) and ![frosted button coarser](frost_button_simple.webp)
 
 ---
 
